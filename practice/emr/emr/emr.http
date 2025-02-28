@@ -1,0 +1,14 @@
+# curl -X 'GET' 
+#  'https://localhost:7296/api/Patient' 
+#  -H 'accept: text/plain'
+GET https://localhost:7296/api/Patient
+accept: text/plain
+
+###
+# curl -X 'GET' 
+#  'https://localhost:7296/api/Patient/Find/J01' 
+#  -H 'accept: text/plain'
+GET https://localhost:7296/api/Patient/Find/J01
+accept: text/plain
+
+###
