@@ -17,7 +17,7 @@ public class MedicationController : ControllerBase
     {
         _mediator = mediator;
     }
-    [HttpGet]
+    [HttpGet("Stock")]
     [ProducesResponseType(typeof(List<DrugDto>), 200)]
     public async Task<IActionResult> GetStock()
     {
@@ -36,7 +36,7 @@ public class MedicationController : ControllerBase
             return StatusCode(500, e.Message);
         }
     }
-    [HttpGet]
+    [HttpGet("Clients/All")]
     [ProducesResponseType(typeof(List<ClientDto>), 200)]
     public async Task<IActionResult> GetClients()
     {
@@ -56,7 +56,7 @@ public class MedicationController : ControllerBase
         }
     }
     
-    [HttpGet("Find/{id}")]
+    [HttpGet("Clients/Find/{id}")]
     [ProducesResponseType(typeof(ClientDto), 200)]
     public async Task<IActionResult> GetClientById(Guid id)
     {
@@ -76,7 +76,7 @@ public class MedicationController : ControllerBase
         }
     }
     
-    [HttpGet("Find/Ref/{refId}")]
+    [HttpGet("Clients/Find/Ref/{refId}")]
     [ProducesResponseType(typeof(ClientDto), 200)]
     public async Task<IActionResult> GetClientByRef(string refId)
     {
