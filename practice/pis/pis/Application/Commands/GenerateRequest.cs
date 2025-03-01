@@ -36,30 +36,10 @@ public class GenerateRequestHandler : IRequestHandler<GenerateRequest, Result>
     {
         try
         {
-            Guid clientId;
+            var clientId = await SaveClient(request, cancellationToken);
 
-            #region client
-            var client = await _context.Clients
-                .AsNoTracking()
-                .FirstOrDefaultAsync(x=>x.RefId==
-                                        request.Prescription.Client.RefId, cancellationToken);
-
-            if (null == client)
-            {
-                var newClient = _mapper.Map<Client>(request.Prescription.Client);
-                await _context.Clients.AddAsync(newClient,cancellationToken);
-                clientId = newClient.Id;
-            }
-            else
-            {
-                clientId = client.Id;
-            }
-            #endregion
-
-            var prescriptions = _mapper.Map<List<MedicationRequest>>(request.Prescription.Medications);
-            prescriptions.ForEach(x => x.ClientId = clientId);
-            
-            await _context.Requests.AddRangeAsync(prescriptions,cancellationToken);
+            var prescriptions = request.Prescription.Create(clientId);
+            await _context.Requests.AddRangeAsync(prescriptions, cancellationToken);
             await _context.Commit(cancellationToken);
 
             await _mediator.Publish(new RequestGeneratedEvent(
@@ -77,5 +57,23 @@ public class GenerateRequestHandler : IRequestHandler<GenerateRequest, Result>
             Log.Error(e, "Error saving");
             return Result.Failure(e.Message);
         }
+    }
+
+    private async Task<Guid> SaveClient(GenerateRequest request, CancellationToken cancellationToken)
+    {
+        var refId = request.Prescription.Client.RefId.ToLower();
+        
+        var client = await _context.Clients.AsNoTracking()
+            .FirstOrDefaultAsync(x => x.RefId.ToLower() == refId, cancellationToken);
+
+        if (null == client)
+        {
+            var newClient = _mapper.Map<Client>(request.Prescription.Client);
+            await _context.Clients.AddAsync(newClient, cancellationToken);
+            await _context.Commit(cancellationToken);
+            return newClient.Id;
+        }
+
+        return client.Id;
     }
 }

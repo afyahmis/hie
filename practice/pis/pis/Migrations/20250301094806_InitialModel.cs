@@ -38,7 +38,7 @@ namespace pis.Migrations
                     Name = table.Column<string>(type: "TEXT", nullable: false),
                     Code = table.Column<string>(type: "TEXT", nullable: false),
                     QuantityInStock = table.Column<double>(type: "REAL", nullable: false),
-                    Updated = table.Column<DateTime>(type: "TEXT", nullable: false)
+                    Updated = table.Column<DateTime>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -51,6 +51,7 @@ namespace pis.Migrations
                 {
                     Id = table.Column<Guid>(type: "TEXT", nullable: false),
                     RefId = table.Column<string>(type: "TEXT", nullable: false),
+                    PrescriptionDrugCode = table.Column<string>(type: "TEXT", nullable: false),
                     PrescriptionDrug = table.Column<string>(type: "TEXT", nullable: false),
                     PrescriptionDate = table.Column<DateTime>(type: "TEXT", nullable: false),
                     DispenseDrugId = table.Column<Guid>(type: "TEXT", nullable: true),
@@ -75,20 +76,20 @@ namespace pis.Migrations
                 columns: new[] { "Id", "Code", "Name", "QuantityInStock", "Updated" },
                 values: new object[,]
                 {
-                    { new Guid("020b9967-9099-4e7a-8592-f4c30eb6787d"), "D113", "Azithromycin Tablet, Film-coated 500mg", 500.0, new DateTime(2025, 3, 1, 3, 21, 15, 363, DateTimeKind.Local).AddTicks(4953) },
-                    { new Guid("24b4da21-9ae6-4f07-8ef2-f45468ea8075"), "D112", "Miltefosine Capsules, hard 50mg", 500.0, new DateTime(2025, 3, 1, 3, 21, 15, 363, DateTimeKind.Local).AddTicks(4952) },
-                    { new Guid("2c1b4f36-b224-49d0-8759-bff5b24e2e8c"), "D111", "Albendazole Tablets, Chewable 400mg", 500.0, new DateTime(2025, 3, 1, 3, 21, 15, 363, DateTimeKind.Local).AddTicks(4950) },
-                    { new Guid("332814e6-d15e-4e2d-8f8a-f4e8c330e409"), "D105", "Ivermectin Tablet 3mg", 500.0, new DateTime(2025, 3, 1, 3, 21, 15, 363, DateTimeKind.Local).AddTicks(4914) },
-                    { new Guid("3e1762e2-3c53-46aa-ab0d-4b9902befb5b"), "D107", "Praziquantel Tablet, Film-coated 600mg", 500.0, new DateTime(2025, 3, 1, 3, 21, 15, 363, DateTimeKind.Local).AddTicks(4919) },
-                    { new Guid("44a14375-899b-42af-9a3b-76b9e805c0de"), "D101", "Diethylcarbamazine (citrate) Tablet 100mg", 500.0, new DateTime(2025, 3, 1, 3, 21, 15, 363, DateTimeKind.Local).AddTicks(4780) },
-                    { new Guid("88baedfc-2558-4f4f-a25c-ebba4ac8c09f"), "D108", "Albendazole Tablets, Chewable 400mg", 500.0, new DateTime(2025, 3, 1, 3, 21, 15, 363, DateTimeKind.Local).AddTicks(4946) },
-                    { new Guid("90a46328-b1f1-4654-883f-2af18ace836c"), "D104", "Mebendazole Tablets, Chewable 500mg", 500.0, new DateTime(2025, 3, 1, 3, 21, 15, 363, DateTimeKind.Local).AddTicks(4913) },
-                    { new Guid("b691d1eb-2020-4f15-812b-7ab6c2af24d4"), "D102", "Praziquantel Tablet, Film-coated 600mg", 500.0, new DateTime(2025, 3, 1, 3, 21, 15, 363, DateTimeKind.Local).AddTicks(4811) },
-                    { new Guid("c56b4f97-48e8-42f5-bf1b-4167997dbc70"), "D109", "Praziquantel Tablet, Film-coated 600mg", 500.0, new DateTime(2025, 3, 1, 3, 21, 15, 363, DateTimeKind.Local).AddTicks(4948) },
-                    { new Guid("e26c0632-8f7a-4bbd-94db-f1ed3fa123ad"), "D114", "Levonorgestrel Tablet, coated 30mcg", 500.0, new DateTime(2025, 3, 1, 3, 21, 15, 363, DateTimeKind.Local).AddTicks(4954) },
-                    { new Guid("ea19e9f9-b7e0-41f1-a624-1084a959e2ff"), "D103", "Albendazole Tablet 400mg", 500.0, new DateTime(2025, 3, 1, 3, 21, 15, 363, DateTimeKind.Local).AddTicks(4911) },
-                    { new Guid("eac51b5a-a01c-4775-96fb-615b8b2cd4bb"), "D110", "Albendazole Tablets, Chewable 400mg", 500.0, new DateTime(2025, 3, 1, 3, 21, 15, 363, DateTimeKind.Local).AddTicks(4949) },
-                    { new Guid("f1b1e424-6767-4c4d-80fa-a4ecca13a8be"), "D106", "Ivermectin Tablet 3mg", 500.0, new DateTime(2025, 3, 1, 3, 21, 15, 363, DateTimeKind.Local).AddTicks(4915) }
+                    { new Guid("04f73242-74a0-492d-b24b-63cbd788f086"), "D112", "Miltefosine Capsules, hard 50mg", 500.0, null },
+                    { new Guid("1725fe0a-4c0b-4fe1-9395-fd1c05dfa750"), "D102", "Praziquantel Tablet, Film-coated 600mg", 500.0, null },
+                    { new Guid("2aee5d6b-7777-4927-974e-c9a88bfee23b"), "D107", "Praziquantel Tablet, Film-coated 600mg", 500.0, null },
+                    { new Guid("45d5d579-de45-4dcb-b9e5-460f267d7085"), "D113", "Azithromycin Tablet, Film-coated 500mg", 500.0, null },
+                    { new Guid("4a213286-9830-48ec-b6ed-610f341f451a"), "D101", "Diethylcarbamazine (citrate) Tablet 100mg", 500.0, null },
+                    { new Guid("688e78ac-afef-490d-9281-7ebe59d18aad"), "D108", "Albendazole Tablets, Chewable 400mg", 500.0, null },
+                    { new Guid("69941033-ce0b-4cc5-af2d-1b64b1e61f4a"), "D109", "Praziquantel Tablet, Film-coated 600mg", 500.0, null },
+                    { new Guid("9a1d53a2-1ca6-4d50-b0b9-f2304f8383e7"), "D104", "Mebendazole Tablets, Chewable 500mg", 500.0, null },
+                    { new Guid("b2ffceed-7dac-4bb2-8051-f8ad3e65c462"), "D106", "Ivermectin Tablet 6mg", 500.0, null },
+                    { new Guid("c6e1e45f-80d2-4f86-aa92-05df7b0333d1"), "D110", "Albendazole Tablets, Chewable 200mg", 500.0, null },
+                    { new Guid("cdfec3c5-b141-4939-a101-5a240810e0c5"), "D114", "Levonorgestrel Tablet, coated 30mcg", 500.0, null },
+                    { new Guid("e8725ab5-b927-4ae6-8b02-0a5c4c799a5e"), "D103", "Albendazole Tablet 400mg", 500.0, null },
+                    { new Guid("e8f09582-31f1-4b60-9d46-ff045b0665ba"), "D111", "Albendazole Tablets, Chewable 100mg", 500.0, null },
+                    { new Guid("f345a67e-5efb-4207-ae2b-fa2ef97520fd"), "D105", "Ivermectin Tablet 3mg", 500.0, null }
                 });
 
             migrationBuilder.CreateIndex(

@@ -9,7 +9,7 @@ public class PisProfile : Profile
     {
         CreateMap<Drug, DrugDto>();
         CreateMap<Client, ClientDto>().ReverseMap();
-        CreateMap<Client,ClientRequestDto>().ReverseMap();
+        CreateMap<Client, RequestClientDto>().ReverseMap();
         CreateMap<MedicationRequest, MedicationRequestDto>().ReverseMap();
         CreateMap<MedicationRequest, MedicationDto>().ReverseMap();
     }

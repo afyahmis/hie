@@ -7,12 +7,11 @@ public class Drug : Entity<Guid>
     public string Name { get;private set; }
     public string Code { get;private set; }
     public double QuantityInStock { get;private set; }
-    public DateTime Updated { get;private set; }
+    public DateTime? Updated { get;private set; }
 
     private Drug()
     {
-        Id = Guid.NewGuid();
-        Updated = DateTime.Now;
+        Id = Guid.NewGuid();;
     }
 
     public Drug(string name, string code, double quantityInStock)
@@ -36,6 +35,7 @@ public class Drug : Entity<Guid>
         if (quantity > 0)
         {
             QuantityInStock += quantity;
+            Updated=DateTime.Now;
             return;
         }
 
@@ -45,10 +45,11 @@ public class Drug : Entity<Guid>
             throw new Exception($"Cannot reduce {quantity} > available: {QuantityInStock}");
 
         QuantityInStock -= quantity;
+        Updated=DateTime.Now;
     }
 
     public override string ToString()
     {
-        return $"{Code}-{Name},{QuantityInStock}";
+        return $"{Code}-{Name} [stock:{QuantityInStock}]";
     }
 }

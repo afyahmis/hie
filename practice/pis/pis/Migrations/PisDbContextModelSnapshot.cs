@@ -67,7 +67,7 @@ namespace pis.Migrations
                     b.Property<double>("QuantityInStock")
                         .HasColumnType("REAL");
 
-                    b.Property<DateTime>("Updated")
+                    b.Property<DateTime?>("Updated")
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
@@ -77,115 +77,101 @@ namespace pis.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("44a14375-899b-42af-9a3b-76b9e805c0de"),
+                            Id = new Guid("4a213286-9830-48ec-b6ed-610f341f451a"),
                             Code = "D101",
                             Name = "Diethylcarbamazine (citrate) Tablet 100mg",
-                            QuantityInStock = 500.0,
-                            Updated = new DateTime(2025, 3, 1, 3, 21, 15, 363, DateTimeKind.Local).AddTicks(4780)
+                            QuantityInStock = 500.0
                         },
                         new
                         {
-                            Id = new Guid("b691d1eb-2020-4f15-812b-7ab6c2af24d4"),
+                            Id = new Guid("1725fe0a-4c0b-4fe1-9395-fd1c05dfa750"),
                             Code = "D102",
                             Name = "Praziquantel Tablet, Film-coated 600mg",
-                            QuantityInStock = 500.0,
-                            Updated = new DateTime(2025, 3, 1, 3, 21, 15, 363, DateTimeKind.Local).AddTicks(4811)
+                            QuantityInStock = 500.0
                         },
                         new
                         {
-                            Id = new Guid("ea19e9f9-b7e0-41f1-a624-1084a959e2ff"),
+                            Id = new Guid("e8725ab5-b927-4ae6-8b02-0a5c4c799a5e"),
                             Code = "D103",
                             Name = "Albendazole Tablet 400mg",
-                            QuantityInStock = 500.0,
-                            Updated = new DateTime(2025, 3, 1, 3, 21, 15, 363, DateTimeKind.Local).AddTicks(4911)
+                            QuantityInStock = 500.0
                         },
                         new
                         {
-                            Id = new Guid("90a46328-b1f1-4654-883f-2af18ace836c"),
+                            Id = new Guid("9a1d53a2-1ca6-4d50-b0b9-f2304f8383e7"),
                             Code = "D104",
                             Name = "Mebendazole Tablets, Chewable 500mg",
-                            QuantityInStock = 500.0,
-                            Updated = new DateTime(2025, 3, 1, 3, 21, 15, 363, DateTimeKind.Local).AddTicks(4913)
+                            QuantityInStock = 500.0
                         },
                         new
                         {
-                            Id = new Guid("332814e6-d15e-4e2d-8f8a-f4e8c330e409"),
+                            Id = new Guid("f345a67e-5efb-4207-ae2b-fa2ef97520fd"),
                             Code = "D105",
                             Name = "Ivermectin Tablet 3mg",
-                            QuantityInStock = 500.0,
-                            Updated = new DateTime(2025, 3, 1, 3, 21, 15, 363, DateTimeKind.Local).AddTicks(4914)
+                            QuantityInStock = 500.0
                         },
                         new
                         {
-                            Id = new Guid("f1b1e424-6767-4c4d-80fa-a4ecca13a8be"),
+                            Id = new Guid("b2ffceed-7dac-4bb2-8051-f8ad3e65c462"),
                             Code = "D106",
-                            Name = "Ivermectin Tablet 3mg",
-                            QuantityInStock = 500.0,
-                            Updated = new DateTime(2025, 3, 1, 3, 21, 15, 363, DateTimeKind.Local).AddTicks(4915)
+                            Name = "Ivermectin Tablet 6mg",
+                            QuantityInStock = 500.0
                         },
                         new
                         {
-                            Id = new Guid("3e1762e2-3c53-46aa-ab0d-4b9902befb5b"),
+                            Id = new Guid("2aee5d6b-7777-4927-974e-c9a88bfee23b"),
                             Code = "D107",
                             Name = "Praziquantel Tablet, Film-coated 600mg",
-                            QuantityInStock = 500.0,
-                            Updated = new DateTime(2025, 3, 1, 3, 21, 15, 363, DateTimeKind.Local).AddTicks(4919)
+                            QuantityInStock = 500.0
                         },
                         new
                         {
-                            Id = new Guid("88baedfc-2558-4f4f-a25c-ebba4ac8c09f"),
+                            Id = new Guid("688e78ac-afef-490d-9281-7ebe59d18aad"),
                             Code = "D108",
                             Name = "Albendazole Tablets, Chewable 400mg",
-                            QuantityInStock = 500.0,
-                            Updated = new DateTime(2025, 3, 1, 3, 21, 15, 363, DateTimeKind.Local).AddTicks(4946)
+                            QuantityInStock = 500.0
                         },
                         new
                         {
-                            Id = new Guid("c56b4f97-48e8-42f5-bf1b-4167997dbc70"),
+                            Id = new Guid("69941033-ce0b-4cc5-af2d-1b64b1e61f4a"),
                             Code = "D109",
                             Name = "Praziquantel Tablet, Film-coated 600mg",
-                            QuantityInStock = 500.0,
-                            Updated = new DateTime(2025, 3, 1, 3, 21, 15, 363, DateTimeKind.Local).AddTicks(4948)
+                            QuantityInStock = 500.0
                         },
                         new
                         {
-                            Id = new Guid("eac51b5a-a01c-4775-96fb-615b8b2cd4bb"),
+                            Id = new Guid("c6e1e45f-80d2-4f86-aa92-05df7b0333d1"),
                             Code = "D110",
-                            Name = "Albendazole Tablets, Chewable 400mg",
-                            QuantityInStock = 500.0,
-                            Updated = new DateTime(2025, 3, 1, 3, 21, 15, 363, DateTimeKind.Local).AddTicks(4949)
+                            Name = "Albendazole Tablets, Chewable 200mg",
+                            QuantityInStock = 500.0
                         },
                         new
                         {
-                            Id = new Guid("2c1b4f36-b224-49d0-8759-bff5b24e2e8c"),
+                            Id = new Guid("e8f09582-31f1-4b60-9d46-ff045b0665ba"),
                             Code = "D111",
-                            Name = "Albendazole Tablets, Chewable 400mg",
-                            QuantityInStock = 500.0,
-                            Updated = new DateTime(2025, 3, 1, 3, 21, 15, 363, DateTimeKind.Local).AddTicks(4950)
+                            Name = "Albendazole Tablets, Chewable 100mg",
+                            QuantityInStock = 500.0
                         },
                         new
                         {
-                            Id = new Guid("24b4da21-9ae6-4f07-8ef2-f45468ea8075"),
+                            Id = new Guid("04f73242-74a0-492d-b24b-63cbd788f086"),
                             Code = "D112",
                             Name = "Miltefosine Capsules, hard 50mg",
-                            QuantityInStock = 500.0,
-                            Updated = new DateTime(2025, 3, 1, 3, 21, 15, 363, DateTimeKind.Local).AddTicks(4952)
+                            QuantityInStock = 500.0
                         },
                         new
                         {
-                            Id = new Guid("020b9967-9099-4e7a-8592-f4c30eb6787d"),
+                            Id = new Guid("45d5d579-de45-4dcb-b9e5-460f267d7085"),
                             Code = "D113",
                             Name = "Azithromycin Tablet, Film-coated 500mg",
-                            QuantityInStock = 500.0,
-                            Updated = new DateTime(2025, 3, 1, 3, 21, 15, 363, DateTimeKind.Local).AddTicks(4953)
+                            QuantityInStock = 500.0
                         },
                         new
                         {
-                            Id = new Guid("e26c0632-8f7a-4bbd-94db-f1ed3fa123ad"),
+                            Id = new Guid("cdfec3c5-b141-4939-a101-5a240810e0c5"),
                             Code = "D114",
                             Name = "Levonorgestrel Tablet, coated 30mcg",
-                            QuantityInStock = 500.0,
-                            Updated = new DateTime(2025, 3, 1, 3, 21, 15, 363, DateTimeKind.Local).AddTicks(4954)
+                            QuantityInStock = 500.0
                         });
                 });
 
@@ -211,6 +197,10 @@ namespace pis.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("PrescriptionDrug")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("PrescriptionDrugCode")
                         .IsRequired()
                         .HasColumnType("TEXT");
 

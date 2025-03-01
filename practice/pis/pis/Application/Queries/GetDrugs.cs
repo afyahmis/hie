@@ -9,6 +9,12 @@ namespace pis.Application.Queries;
 
 public class GetDrugs:IRequest<Result<List<DrugDto>>>
 {
+    public string? Code { get; }
+
+    public GetDrugs(string? code = null)
+    {
+        Code = code;
+    }
 }
 
 public class GetDrugsHandler : IRequestHandler<GetDrugs, Result<List<DrugDto>>>
@@ -26,12 +32,16 @@ public class GetDrugsHandler : IRequestHandler<GetDrugs, Result<List<DrugDto>>>
     {
         try
         {
-            var drugs =await _context.Drugs.AsNoTracking()
-                .ToListAsync(cancellationToken);
+            var query = _context.Drugs.AsNoTracking();
 
+            if (!string.IsNullOrWhiteSpace(request.Code))
+                query = query.Where(x => x.Code.ToLower() == request.Code.ToLower());
+            
+            var drugs =await query.ToListAsync(cancellationToken);
+            
             var dto = _mapper.Map<List<DrugDto>>(drugs);
+            
             return Result.Success(dto);
-
         }
         catch (Exception e)
         {

@@ -11,7 +11,7 @@ public class ClientDto
     public DateTime Created { get;  set;}
     public List<MedicationRequestDto> Requests { get; set; } = new ();
 }
-public class ClientRequestDto
+public class RequestClientDto
 {
     public string RefId { get; set; }
     public string RefNo { get; set; }

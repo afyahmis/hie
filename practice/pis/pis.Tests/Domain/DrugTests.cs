@@ -15,12 +15,13 @@ public class DrugTests
     }
     
     [Test]
-    public void should_have_Id_Updated_Date()
+    public void should_have_Id()
     {
-        var drugDispense = new Drug(TestData.GetDrugName(), TestData.GetDrugCode(),100);
-        Assert.That(drugDispense.Id,Is.Not.EqualTo(default(Guid)));
-        Assert.That(drugDispense.Updated,Is.GreaterThan(DateTime.Now.AddHours(-1)));
-        Log.Information($"{drugDispense}");
+        var newDrug = TestData.NewDrug();
+        var drug = new Drug(newDrug.Name, newDrug.Code,100);
+        Assert.That(drug.Id,Is.Not.EqualTo(default(Guid)));
+        Assert.That(drug.Updated,Is.Null);
+        Log.Information($"{drug}");
     }
 
     [Test]
@@ -29,6 +30,7 @@ public class DrugTests
         var drug = _drugs.First();
         var currQuantity = drug.QuantityInStock;
         drug.Dispense(2);
+        Assert.That(drug.Updated,Is.Not.Null);
         Assert.That(drug.QuantityInStock, Is.EqualTo(currQuantity-2));
         Log.Information($"{currQuantity} >> -2 >> {drug} ");
     }
@@ -39,6 +41,7 @@ public class DrugTests
         var drug = _drugs.Last();
         var currQuantity = drug.QuantityInStock;
         drug.Adjust(-5);
+        Assert.That(drug.Updated,Is.Not.Null);
         Assert.That(drug.QuantityInStock, Is.EqualTo(currQuantity-5));
         Log.Information($"{currQuantity} >> -5 >> {drug} ");
     }
@@ -48,6 +51,7 @@ public class DrugTests
         var drug = _drugs.First();
         var currQuantity = drug.QuantityInStock;
         drug.Adjust(11);
+        Assert.That(drug.Updated,Is.Not.Null);
         Assert.That(drug.QuantityInStock, Is.EqualTo(currQuantity+11));
         Log.Information($"{currQuantity} >> +11 >> {drug} ");
     }

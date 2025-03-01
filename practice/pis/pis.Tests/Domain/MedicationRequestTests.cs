@@ -6,18 +6,17 @@ namespace pis.Tests.Domain;
 [TestFixture]
 public class MedicationRequestTests
 {
-    private MedicationRequest _medicationRequest;
-
-    [SetUp]
-    public void Setup()
-    {
-        _medicationRequest = TestData.GetRequests(Guid.NewGuid()).First();
-    }
-    
     [Test]
     public void should_have_Id()
     {
-        var medicationRequest =TestData.GetRequests(Guid.NewGuid()).Last();
+        var drug = TestData.NewDrug();
+        var medicationRequest = new MedicationRequest(
+            Guid.NewGuid().ToString(),
+            drug.Code,
+            drug.Name,
+            DateTime.Now, Guid.NewGuid()
+        );
+        
         Assert.That(medicationRequest.Id,Is.Not.EqualTo(default(Guid)));
         Assert.That(medicationRequest.Updated,Is.Null);
         Log.Information($"{medicationRequest}");
@@ -25,11 +24,19 @@ public class MedicationRequestTests
     [Test]
     public void should_Issue()
     {
-        Assert.That(_medicationRequest.Status,Is.EqualTo(RequestStatus.Pending));
-        _medicationRequest.Issue(Guid.NewGuid());
-        Assert.That(_medicationRequest.DispenseDate,Is.GreaterThan(DateTime.Now.AddHours(-1)));
-        Assert.That(_medicationRequest.Updated,Is.GreaterThan(DateTime.Now.AddHours(-1)));
-        Assert.That(_medicationRequest.Status,Is.EqualTo(RequestStatus.Dispensed));
-        Log.Information($"{_medicationRequest}");
+        var drug = TestData.NewDrug();
+        var request = new MedicationRequest(
+            Guid.NewGuid().ToString(),
+            drug.Code,
+            drug.Name,
+            DateTime.Now, Guid.NewGuid()
+        );
+        
+        Assert.That(request.Status,Is.EqualTo(RequestStatus.Pending));
+        request.Issue(Guid.NewGuid());
+        Assert.That(request.DispenseDate,Is.GreaterThan(DateTime.Now.AddHours(-1)));
+        Assert.That(request.Updated,Is.GreaterThan(DateTime.Now.AddHours(-1)));
+        Assert.That(request.Status,Is.EqualTo(RequestStatus.Dispensed));
+        Log.Information($"{request}");
     }
 }

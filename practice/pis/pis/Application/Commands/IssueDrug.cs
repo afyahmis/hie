@@ -33,23 +33,23 @@ public class IssueDrugHandler : IRequestHandler<IssueDrug, Result>
         try
         {
             // request
-            var mrequest =await _context.Requests.FindAsync(request.IssueDto.Id, cancellationToken);
+            var medicationRequest =await _context.Requests.FindAsync(request.IssueDto.Id, cancellationToken);
 
-            if (null == mrequest)
+            if (null == medicationRequest)
                 throw new Exception($"Request Id={request.IssueDto.Id} Does NOT exist!");
             
             // stock
-            var drug =await _context.Drugs.FirstOrDefaultAsync(x=>x.Name.ToLower()==request.IssueDto.DrugName.ToLower(),cancellationToken);
+            var drug =await _context.Drugs.FindAsync(request.IssueDto.DrugId,cancellationToken);
             
             if (null == drug)
-                throw new Exception($"Drug Name={request.IssueDto.DrugName} Does NOT exist!");
+                throw new Exception($"Drug Name={request.IssueDto.DrugId} Does NOT exist!");
 
-            mrequest.Issue(drug.Id);
+            medicationRequest.Issue(drug.Id);
             drug.Dispense();
             
             await _context.Commit(cancellationToken);
             
-            await _mediator.Publish(new DrugIssuedEvent(mrequest.Id), cancellationToken);
+            await _mediator.Publish(new DrugIssuedEvent(medicationRequest.Id), cancellationToken);
             
             return Result.Success();
 

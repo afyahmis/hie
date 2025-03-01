@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using pis.Data;
 using Serilog;
@@ -17,9 +18,9 @@ public class PisDbContextTests
     [Test]
     public void should_Seed()
     {
-        Assert.That(_context.Drugs.Any);
+        Assert.That(_context.Drugs.AsNoTracking().Any);
 
-        foreach (var drug in _context.Drugs)
+        foreach (var drug in _context.Drugs.AsNoTracking().OrderBy(x=>x.Name))
             Log.Information($"{drug}");
 
     }

@@ -67,24 +67,24 @@ public static class TestData
     {
         return Pick<string>.RandomItemFrom(ListOfDrugs());
     }
+
     public static List<string> ListOfDrugs()
     {
         var list = new List<string>();
-        list.Add("Diethylcarbamazine (citrate) Tablet 100mg");
-        list.Add("Praziquantel Tablet, Film-coated 600mg");
-        list.Add("Albendazole Tablet 400mg");
-        list.Add("Mebendazole Tablets, Chewable 500mg");
-        list.Add("Ivermectin Tablet 3mg");
-        list.Add("Ivermectin Tablet 3mg");
-        list.Add("Praziquantel Tablet, Film-coated 600mg");
-        list.Add("Albendazole Tablets, Chewable 400mg");
-        list.Add("Praziquantel Tablet, Film-coated 600mg");
-        list.Add("Albendazole Tablets, Chewable 400mg");
-        list.Add("Albendazole Tablets, Chewable 400mg");
-        list.Add("Miltefosine Capsules, hard 50mg");
-        list.Add("Azithromycin Tablet, Film-coated 500mg");
-        list.Add("Levonorgestrel Tablet, coated 30mcg");
+       list.Add("Diethylcarbamazine (citrate) Tablet 100mg|D101");
+       list.Add("Praziquantel Tablet, Film-coated 200mg|D102");
+       list.Add("Albendazole Tablet 400mg|D103");
+       list.Add("Mebendazole Tablets, Chewable 500mg|D104");
+       list.Add("Ivermectin Tablet 3mg|D105");
+       list.Add("Ivermectin Tablet 6mg|D106");
+       list.Add("Praziquantel Tablet, Film-coated 300mg|D107");
+       list.Add("Albendazole Tablets, Chewable 400mg|D108");
+       list.Add("Praziquantel Tablet, Film-coated 600mg|D109");
+       list.Add("Albendazole Tablets, Chewable 200mg|D110");
+       list.Add("Albendazole Tablets, Chewable 100mg|D111");
+       list.Add("Miltefosine Capsules, hard 50mg|D112");
+       list.Add("Azithromycin Tablet, Film-coated 500mg|D113");
+       list.Add("Levonorgestrel Tablet, coated 30mcg|D114");
         return list;
     }
-
 }

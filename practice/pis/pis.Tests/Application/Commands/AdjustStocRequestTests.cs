@@ -26,6 +26,11 @@ public class AdjustStockTests
         
         var res = await _mediator.Send(adjustStock);
         Assert.That(res.IsSuccess,Is.True);
+
+        var ctx = TestInitializer.ServiceProvider.GetRequiredService<PisDbContext>();
+        var saved = ctx.Drugs.Find(drug.Id);
+        Assert.That(saved.QuantityInStock,Is.EqualTo(drug.QuantityInStock-12));
+
     }
     
     private List<Drug> GetDrugs()
