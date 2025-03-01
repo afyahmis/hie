@@ -2,6 +2,8 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "pis", "pis\pis.csproj", "{08DA252F-77E6-4167-B055-A7E484BE92DE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "pis.Tests", "pis.Tests\pis.Tests.csproj", "{5BAAB723-E5B5-4A2A-93EA-4B58B8001233}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -12,5 +14,9 @@ Global
 		{08DA252F-77E6-4167-B055-A7E484BE92DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{08DA252F-77E6-4167-B055-A7E484BE92DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{08DA252F-77E6-4167-B055-A7E484BE92DE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5BAAB723-E5B5-4A2A-93EA-4B58B8001233}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5BAAB723-E5B5-4A2A-93EA-4B58B8001233}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5BAAB723-E5B5-4A2A-93EA-4B58B8001233}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5BAAB723-E5B5-4A2A-93EA-4B58B8001233}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

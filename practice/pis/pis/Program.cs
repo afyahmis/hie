@@ -1,44 +1,86 @@
-var builder = WebApplication.CreateBuilder(args);
+using System.Reflection;
+using Microsoft.AspNetCore.HttpOverrides;
+using Microsoft.EntityFrameworkCore;
+using pis.Application;
+using pis.Data;
+using Serilog;
 
-// Add services to the container.
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+namespace pis;
 
-var app = builder.Build();
-
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+public class Program
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
-
-app.UseHttpsRedirection();
-
-var summaries = new[]
-{
-    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-};
-
-app.MapGet("/weatherforecast", () =>
+    public static void Main(string[] args)
     {
-        var forecast = Enumerable.Range(1, 5).Select(index =>
-                new WeatherForecast
-                (
-                    DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-                    Random.Shared.Next(-20, 55),
-                    summaries[Random.Shared.Next(summaries.Length)]
-                ))
-            .ToArray();
-        return forecast;
-    })
-    .WithName("GetWeatherForecast")
-    .WithOpenApi();
+        var builder = WebApplication.CreateBuilder(args);
+        var environment = builder.Environment.EnvironmentName;
+        
+        var config = builder.Configuration
+            .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+            .AddJsonFile($"appsettings.{environment}.json", optional: true, reloadOnChange: true)
+            .AddJsonFile("serilog.json", optional: true, reloadOnChange: true)
+            .AddJsonFile($"serilog.{environment}.json", optional: true, reloadOnChange: true)
+            .AddEnvironmentVariables()
+            .Build();
+        
+        Log.Logger = new LoggerConfiguration()
+            .ReadFrom.Configuration(config)
+            .CreateLogger();
+        
+        builder.Host.UseSerilog((hostContext, loggerConfig) =>
+        {
+            loggerConfig
+                .ReadFrom.Configuration(hostContext.Configuration)
+                .Enrich.WithProperty("ApplicationName", hostContext.HostingEnvironment.ApplicationName);
+        });
+        builder.Services.Configure<ForwardedHeadersOptions>(options =>
+        {
+            options.ForwardedHeaders =
+                ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
+        });
+        builder.Services.AddControllers().AddNewtonsoftJson(options =>
+            options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
+        // Add services to the container.
+        builder.Services.AddAuthorization();
 
-app.Run();
+        // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+        
+        builder.Services.AddEndpointsApiExplorer();
+        builder.Services.AddSwaggerGen();
+        builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
+        builder.Services.AddMediatR(cfg =>
+        {
+            cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly());
+        });
 
-record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
-{
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
+        var connectionString = config.GetConnectionString("LiveConnection");
+        builder.Services.AddDbContext<PisDbContext>(x => x
+            .EnableSensitiveDataLogging(builder.Environment.IsDevelopment())
+            .UseSqlite(connectionString)
+        );
+
+        builder.Services.AddScoped<IPisDbContext>(provider => provider.GetRequiredService<PisDbContext>());
+     
+        var app = builder.Build();
+
+        // Apply migrations on startup
+        using (var scope = app.Services.CreateScope())
+        {
+            var services = scope.ServiceProvider;
+            var context = services.GetRequiredService<PisDbContext>();
+            context.Database.Migrate();
+        }
+        
+        // Configure the HTTP request pipeline.
+        if (app.Environment.IsDevelopment())
+        {
+            app.UseSwagger();
+            app.UseSwaggerUI();
+        }
+
+        app.UseHttpsRedirection();
+
+        app.UseAuthorization();
+        app.MapControllers();
+        app.Run();
+    }
 }
